@@ -1,63 +1,79 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const bodyParser = require('body-parser');
-const cors = require('cors');
 
 const app = express();
 const port = 3000;
 
+// Configuração do middleware
 app.use(bodyParser.json());
-app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-//Conecta-se ao banco de dados SQLite
-const db = new sqlite3.Database('./data/coleta_dados.db', (err) => {
-  if (err) {
-    console.error('Não foi possível conectar ao banco de dados', err);
-  } else {
-    console.log('Conectado ao banco de dados SQLite');
-  }
-});
+// Configuração do banco de dados SQLite (arquivo físico)
+const db = new sqlite3.Database('./banco_de_dados.db');
 
-// Cria tabela se ela não existir
+// Criar a tabela se não existir
 db.serialize(() => {
-  db.run(`
-    CREATE TABLE IF NOT EXISTS dados (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      nome TEXT,
-      idade INTEGER,
-      sexo TEXT,
-      motivoAtendimento TEXT,
-      tipoAtendimento TEXT,
-      necessitaTransferencia INTEGER
-    )
-  `);
+  db.run(`CREATE TABLE IF NOT EXISTS dados (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT,
+    idade INTEGER,
+    sexo TEXT,
+    motivoAtendimento TEXT,
+    tipoAtendimento TEXT,
+    necessitaTransferencia BOOLEAN
+  )`);
 });
 
+// Create
+app.post('/dados', (req, res) => {
+  const { nome, idade, sexo, motivoAtendimento, tipoAtendimento, necessitaTransferencia } = req.body;
+  const stmt = db.prepare('INSERT INTO dados (nome, idade, sexo, motivoAtendimento, tipoAtendimento, necessitaTransferencia) VALUES (?, ?, ?, ?, ?, ?)');
+  stmt.run(nome, idade, sexo, motivoAtendimento, tipoAtendimento, necessitaTransferencia);
+  stmt.finalize();
+  res.status(201).json({ message: 'Dados salvos com sucesso!' });
+});
+
+// Read
 app.get('/dados', (req, res) => {
-  db.all('SELECT * FROM dados', [], (err, rows) => {
+  db.all('SELECT * FROM dados', (err, rows) => {
     if (err) {
       res.status(500).json({ error: err.message });
-      return;
+    } else {
+      res.json(rows);
     }
-    res.json(rows);
   });
 });
 
-app.post('/dados', (req, res) => {
+// Update
+app.put('/dados/:id', (req, res) => {
+  const { id } = req.params;
   const { nome, idade, sexo, motivoAtendimento, tipoAtendimento, necessitaTransferencia } = req.body;
-  db.run(
-    `INSERT INTO dados (nome, idade, sexo, motivoAtendimento, tipoAtendimento, necessitaTransferencia) VALUES (?, ?, ?, ?, ?, ?)`,
-    [nome, idade, sexo, motivoAtendimento, tipoAtendimento, necessitaTransferencia ? 1 : 0],
-    function (err) {
-      if (err) {
-        res.status(500).json({ error: err.message });
-        return;
-      }
-      res.json({ id: this.lastID });
+  const stmt = db.prepare('UPDATE dados SET nome = ?, idade = ?, sexo = ?, motivoAtendimento = ?, tipoAtendimento = ?, necessitaTransferencia = ? WHERE id = ?');
+  stmt.run(nome, idade, sexo, motivoAtendimento, tipoAtendimento, necessitaTransferencia, id, (err) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.json({ message: 'Dados atualizados com sucesso!' });
     }
-  );
+  });
+  stmt.finalize();
+});
+
+// Delete
+app.delete('/dados/:id', (req, res) => {
+  const { id } = req.params;
+  const stmt = db.prepare('DELETE FROM dados WHERE id = ?');
+  stmt.run(id, (err) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.json({ message: 'Dados deletados com sucesso!' });
+    }
+  });
+  stmt.finalize();
 });
 
 app.listen(port, () => {
-  console.log(`O servidor está em execução http://localhost:${port}`);
+  console.log(`Servidor rodando em http://localhost:${port}`);
 });
