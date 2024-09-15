@@ -37,10 +37,18 @@ dependencies:
   cupertino_icons: ^1.0.6
   auto_size_text: ^3.0.0
   awesome_snackbar_content: ^0.1.4
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_launcher_icons:
+  image_path: "images/logoIconnn.png"
+  android: "launcher_icon"
+  adaptive_icon_background: "#FFFFFF"
+  ios: true
+  min_sdk_android: 21 # android min sdk min:16, default 21
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

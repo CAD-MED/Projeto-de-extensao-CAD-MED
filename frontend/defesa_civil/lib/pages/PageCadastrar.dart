@@ -118,7 +118,6 @@ class _PageCadastrarState extends State<PageCadastrar> {
                               alertFailField(context);
                             } else {
                               alertSucess(context);
-                              print(controllerPatologia.text);
                               // Navigator.of(context).pushReplacement(
                               //     MaterialPageRoute(
                               //         builder: (context) =>

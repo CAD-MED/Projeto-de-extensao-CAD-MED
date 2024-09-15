@@ -1,6 +1,8 @@
+import 'package:Cad_Med/components/buttonEffect.dart';
 import 'package:Cad_Med/components/header.dart';
 import 'package:Cad_Med/components/textSection.dart';
 import 'package:Cad_Med/pages/PageCadastrar.dart';
+import 'package:Cad_Med/pages/PageSobre.dart';
 import 'package:flutter/material.dart';
 
 class PageInicio extends StatelessWidget {
@@ -59,20 +61,16 @@ class PageInicio extends StatelessWidget {
                                   icon: Icons.settings),
                               buttonEffect(
                                   size: buttonSize,
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) => PageSobre()));
+                                  },
                                   title: "Sobre",
                                   icon: Icons.view_cozy)
                             ]),
                         const SizedBox(height: 40),
-                        Text("Projeto de extensão",
-                            style: TextStyle(
-                                fontSize: 20, color: Colors.green[800])),
-                        const SizedBox(height: 5),
-                        const Image(image: AssetImage("images/logoUnama.png")),
-                        const SizedBox(height: 5),
-                        Text("Faculdade Unama",
-                            style: TextStyle(
-                                fontSize: 20, color: Colors.green[800])),
+                        sectionLogoExtensao(),
                         const SizedBox(height: 100),
                       ],
                     )
@@ -83,59 +81,15 @@ class PageInicio extends StatelessWidget {
   }
 }
 
-Widget buttonEffect(
-    {required size,
-    required Function onTap,
-    IconData icon = Icons.group,
-    title = "Cadastrar"}) {
-  return InkWell(
-    onTap: () {
-      onTap();
-    },
-    child: Stack(
-      children: [
-        Container(
-          margin: const EdgeInsets.only(top: 8, left: 8),
-          height: size,
-          width: size,
-          decoration: BoxDecoration(
-              color: Colors.green[600]?.withOpacity(0.7),
-              borderRadius: BorderRadius.circular(18)),
-        ),
-        Container(
-          height: size,
-          width: size,
-          decoration: BoxDecoration(
-              color: Colors.green[600],
-              borderRadius: BorderRadius.circular(18)),
-          child: Column(
-            children: [
-              Align(
-                  alignment: Alignment.topLeft,
-                  child: Container(
-                      margin: const EdgeInsets.only(top: 25, left: 20),
-                      child: Text(
-                        title,
-                        style: const TextStyle(
-                            fontSize: 18,
-                            fontFamily: "LilitaOne",
-                            color: Colors.white),
-                      ))),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  margin: const EdgeInsets.only(left: 20),
-                  child: Icon(
-                    icon,
-                    color: Colors.white,
-                    size: 70,
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
+Widget sectionLogoExtensao() {
+  return SizedBox(
+      child: Column(children: [
+    Text("Projeto de extensão",
+        style: TextStyle(fontSize: 20, color: Colors.green[800])),
+    const SizedBox(height: 5),
+    const Image(image: AssetImage("images/logoUnama.png")),
+    const SizedBox(height: 5),
+    Text("Faculdade Unama",
+        style: TextStyle(fontSize: 20, color: Colors.green[800])),
+  ]));
 }

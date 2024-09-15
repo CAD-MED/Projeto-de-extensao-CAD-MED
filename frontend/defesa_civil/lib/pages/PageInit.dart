@@ -58,7 +58,7 @@ class _PageInitState extends State<PageInit> {
                           hintText: "senha",
                           controller: controllerSenha,
                           icon: Icons.key),
-                      // const SizedBox(height: 50),
+                      const SizedBox(height: 30),
                       buttonPersonalizado(
                           maxWidth: sMaxwidth,
                           text: "Iniciar app",
