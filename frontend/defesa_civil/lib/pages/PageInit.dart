@@ -22,38 +22,42 @@ class _PageInitState extends State<PageInit> {
     double margem = 60.0;
     return SafeArea(
         child: Scaffold(
+            backgroundColor: Colors.white,
             body: SingleChildScrollView(
                 child: Column(children: [
-      headerFitHeight(sMaxwidth),
-      Column(children: [
-        SizedBox(
-            width: sMaxwidth - margem,
-            child: Column(children: [
-              textSection(title: "Cadastro de usuario", text: rodapeTexto),
-              const SizedBox(height: 15),
-              textfieldSection(
-                  title: "nome completo",
-                  hintText: "nome completo",
-                  controller: controllerTitle,
-                  icon: Icons.account_box_outlined),
-              const SizedBox(height: 15),
-              textfieldSection(
-                  title: "posto de atendimento",
-                  hintText: "posto",
-                  controller: controllerTitle,
-                  icon: Icons.domain),
-              const SizedBox(height: 15),
-              textfieldSection(
-                  title: "senha do banco de dados",
-                  hintText: "senha",
-                  controller: controllerTitle,
-                  icon: Icons.key),
-              const SizedBox(height: 50),
-              buttonPersonalizado(
-                  maxWidth: sMaxwidth, text: "Iniciar app", onPressed: () {}),
-              const SizedBox(height: 100),
-            ]))
-      ])
-    ]))));
+              headerFitHeight(sMaxwidth),
+              Column(children: [
+                SizedBox(
+                    width: sMaxwidth - margem,
+                    child: Column(children: [
+                      textSection(
+                          title: "Cadastro de usuario", text: rodapeTexto),
+                      const SizedBox(height: 15),
+                      textfieldSection(
+                          title: "nome completo",
+                          hintText: "nome completo",
+                          controller: controllerTitle,
+                          icon: Icons.account_box_outlined),
+                      const SizedBox(height: 15),
+                      textfieldSection(
+                          title: "posto de atendimento",
+                          hintText: "posto",
+                          controller: controllerTitle,
+                          icon: Icons.domain),
+                      const SizedBox(height: 15),
+                      textfieldSection(
+                          title: "senha do banco de dados",
+                          hintText: "senha",
+                          controller: controllerTitle,
+                          icon: Icons.key),
+                      const SizedBox(height: 50),
+                      buttonPersonalizado(
+                          maxWidth: sMaxwidth,
+                          text: "Iniciar app",
+                          onPressed: () {}),
+                      const SizedBox(height: 100),
+                    ]))
+              ])
+            ]))));
   }
 }
