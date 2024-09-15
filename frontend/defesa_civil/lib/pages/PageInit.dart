@@ -14,7 +14,9 @@ class PageInit extends StatefulWidget {
 class _PageInitState extends State<PageInit> {
   final String rodapeTexto =
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at vestibulum nisl, in pellentesque erat. Nam non eleifend dolor, nec gravida mauris. ";
-  TextEditingController controllerTitle = TextEditingController();
+  TextEditingController controllerNome = TextEditingController();
+  TextEditingController controllerPosto = TextEditingController();
+  TextEditingController controllerSenha = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,21 +36,25 @@ class _PageInitState extends State<PageInit> {
                           title: "Cadastro de usuario", text: rodapeTexto),
                       const SizedBox(height: 15),
                       textfieldSection(
+                          keyboardType: TextInputType.name,
                           title: "nome completo",
                           hintText: "nome completo",
-                          controller: controllerTitle,
+                          controller: controllerNome,
                           icon: Icons.account_box_outlined),
                       const SizedBox(height: 15),
                       textfieldSection(
+                          keyboardType: TextInputType.text,
                           title: "posto de atendimento",
                           hintText: "posto",
-                          controller: controllerTitle,
+                          controller: controllerPosto,
                           icon: Icons.domain),
                       const SizedBox(height: 15),
                       textfieldSection(
+                          keyboardType: TextInputType.text,
+                          obscureText: true,
                           title: "senha do banco de dados",
                           hintText: "senha",
-                          controller: controllerTitle,
+                          controller: controllerSenha,
                           icon: Icons.key),
                       const SizedBox(height: 50),
                       buttonPersonalizado(

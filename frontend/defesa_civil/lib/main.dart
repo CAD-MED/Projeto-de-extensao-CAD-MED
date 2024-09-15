@@ -4,6 +4,6 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: PageInicio(),
+    home: PageInit(),
   ));
 }
