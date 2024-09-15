@@ -1,5 +1,6 @@
-import 'package:defesa_civil/components/header.dart';
-import 'package:defesa_civil/components/textSection.dart';
+import 'package:Cad_Med/components/header.dart';
+import 'package:Cad_Med/components/textSection.dart';
+import 'package:Cad_Med/pages/PageCadastrar.dart';
 import 'package:flutter/material.dart';
 
 class PageInicio extends StatelessWidget {
@@ -34,7 +35,10 @@ class PageInicio extends StatelessWidget {
                           children: [
                             buttonEffect(
                                 size: buttonSize,
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => PageCadastrar()));
+                                },
                                 title: "Cadastrar",
                                 icon: Icons.group),
                             buttonEffect(
@@ -95,23 +99,24 @@ Widget buttonEffect(
           height: size,
           width: size,
           decoration: BoxDecoration(
-              color: Colors.green[300],
+              color: Colors.green[600]?.withOpacity(0.7),
               borderRadius: BorderRadius.circular(18)),
         ),
         Container(
           height: size,
           width: size,
           decoration: BoxDecoration(
-              color: Colors.green, borderRadius: BorderRadius.circular(18)),
+              color: Colors.green[600],
+              borderRadius: BorderRadius.circular(18)),
           child: Column(
             children: [
               Align(
                   alignment: Alignment.topLeft,
                   child: Container(
-                      margin: EdgeInsets.only(top: 25, left: 20),
+                      margin: const EdgeInsets.only(top: 25, left: 20),
                       child: Text(
                         title,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 18,
                             fontFamily: "LilitaOne",
                             color: Colors.white),
@@ -119,7 +124,7 @@ Widget buttonEffect(
               Align(
                 alignment: Alignment.centerLeft,
                 child: Container(
-                  margin: EdgeInsets.only(left: 20),
+                  margin: const EdgeInsets.only(left: 20),
                   child: Icon(
                     icon,
                     color: Colors.white,

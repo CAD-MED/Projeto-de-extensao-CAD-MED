@@ -1,5 +1,5 @@
-name: defesa_civil
-description: "A new Flutter project."
+name: Cad_Med
+description: "criado para facilitar e agilizar o processo de registro e gerenciamento de pessoas atendidas nos postos de voluntariado da Defesa Civil em parceria com a Cruz Vermelha."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -36,6 +36,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   auto_size_text: ^3.0.0
+  awesome_snackbar_content: ^0.1.4
 
 dev_dependencies:
   flutter_test:

@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/material.dart';
 
-Widget SelectionSection({
+Widget selectionSection({
   double? width,
   IconData icon = Icons.account_box_outlined,
   String title = "",
@@ -11,13 +11,19 @@ Widget SelectionSection({
   required List<String> items, // Lista de Strings
   String? selectedValue, // Valor inicial selecionado
 }) {
-  // Função para truncar texto com no máximo 20 caracteres
+  // Função para truncar texto com no máximo 30 caracteres
   String truncateText(String text, {int maxLength = 30}) {
     if (text.length > maxLength) {
       return text.substring(0, maxLength) + '...';
     }
     return text;
   }
+
+  // Verifica se `items` tem elementos e define o valor selecionado corretamente
+  final String? dropdownValue =
+      selectedValue != null && items.contains(selectedValue)
+          ? selectedValue
+          : (items.isNotEmpty ? items.first : null);
 
   return SizedBox(
     width: width ??
@@ -39,7 +45,7 @@ Widget SelectionSection({
               double
                   .infinity, // Adapta a largura ao valor fornecido ou preenche a tela
           child: DropdownButtonFormField<String>(
-            value: selectedValue, // Valor inicial da seleção
+            value: dropdownValue, // Valor inicial da seleção
             decoration: InputDecoration(
               prefixIcon: Icon(icon),
               contentPadding:
@@ -59,7 +65,7 @@ Widget SelectionSection({
                 value: value,
                 child: AutoSizeText(
                   truncateText(
-                      value), // Trunca o texto se exceder 20 caracteres
+                      value), // Trunca o texto se exceder 30 caracteres
                   maxLines: 1,
                   minFontSize: 12,
                   maxFontSize: 16,

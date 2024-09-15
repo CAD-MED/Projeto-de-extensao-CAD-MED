@@ -1,9 +1,11 @@
-import 'package:defesa_civil/components/SelectionSection.dart';
-import 'package:defesa_civil/components/buttonPersonalizado.dart';
-import 'package:defesa_civil/components/header.dart';
-import 'package:defesa_civil/components/textSection.dart';
-import 'package:defesa_civil/components/textfieldSection.dart';
-import 'package:defesa_civil/services/patologias/data.dart';
+import 'package:Cad_Med/components/SelectionSection.dart';
+import 'package:Cad_Med/components/buttonPersonalizado.dart';
+import 'package:Cad_Med/components/header.dart';
+import 'package:Cad_Med/components/textSection.dart';
+import 'package:Cad_Med/components/textfieldSection.dart';
+import 'package:Cad_Med/messageAlerts/alerts.dart';
+import 'package:Cad_Med/pages/PageInicio.dart';
+import 'package:Cad_Med/services/patologias/data.dart';
 import 'package:flutter/material.dart';
 
 class PageCadastrar extends StatefulWidget {
@@ -17,6 +19,7 @@ class PageCadastrar extends StatefulWidget {
 
 class _PageCadastrarState extends State<PageCadastrar> {
   TextEditingController controllerTitle = TextEditingController();
+  TextEditingController controllerAge = TextEditingController();
   TextEditingController controllerSelectGen = TextEditingController();
   TextEditingController controllerPatologia = TextEditingController();
   List<String> lista_de_patologias = patologiasMaisVistas;
@@ -44,19 +47,20 @@ class _PageCadastrarState extends State<PageCadastrar> {
                           hintText: "nome completo",
                           controller: controllerTitle,
                           icon: Icons.account_box_outlined),
-                      const SizedBox(height: 15),
+                      // const SizedBox(height: 15),
                       Align(
                           alignment: Alignment.centerLeft,
                           child: SizedBox(
                               width: 200,
                               child: textfieldSection(
                                   keyboardType: TextInputType.number,
+                                  isNumeric: true,
                                   title: "idade",
                                   hintText: "idade",
-                                  controller: controllerTitle,
+                                  controller: controllerAge,
                                   icon: Icons.badge))),
-                      const SizedBox(height: 15),
-                      SelectionSection(
+                      // const SizedBox(height: 15),
+                      selectionSection(
                           width: sMaxwidth - margem,
                           title: "Sexo",
                           icon: Icons.wc,
@@ -68,23 +72,39 @@ class _PageCadastrarState extends State<PageCadastrar> {
                             controllerSelectGen.text = newValue ?? '';
                           }),
                       const SizedBox(height: 15),
-                      SelectionSection(
+                      selectionSection(
                         width: sMaxwidth - margem,
                         title: "Patologia",
                         icon: Icons.menu,
                         hintText: "Patologia",
-                        controller: controllerSelectGen,
+                        controller: controllerPatologia,
                         items: lista_de_patologias,
                         selectedValue: 'Selecione', // Valor inicial
                         onChanged: (newValue) {
-                          controllerSelectGen.text = newValue ?? '';
+                          controllerPatologia.text = newValue ?? '';
                         },
                       ),
                       const SizedBox(height: 50),
                       buttonPersonalizado(
                           maxWidth: sMaxwidth,
                           text: "Cadastrar",
-                          onPressed: () {}),
+                          onPressed: () {
+                            // verificando se todos os campos estão preenchidos corretamente
+                            if (controllerTitle.text.isEmpty ||
+                                controllerAge.text.isEmpty ||
+                                controllerSelectGen.text.isEmpty ||
+                                controllerPatologia.text.isEmpty ||
+                                controllerPatologia.text == "Selecione" ||
+                                controllerSelectGen.text == "Selecione") {
+                              alertFailField(context);
+                            } else {
+                              alertSucess(context);
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const PageInicio()));
+                            }
+                          }),
                       const SizedBox(height: 100),
                     ]))
               ])

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // Para usar TextInputFormatter
 
 Widget textfieldSection(
     {IconData icon = Icons.account_box_outlined,
+    isNumeric = false,
     required TextInputType keyboardType,
     bool obscureText = false,
     String title = "",
@@ -19,6 +21,10 @@ Widget textfieldSection(
         controller: controller,
         obscureText: obscureText,
         keyboardType: keyboardType,
+        maxLength: isNumeric ? 3 : 256,
+        inputFormatters: isNumeric
+            ? [FilteringTextInputFormatter.digitsOnly] // Permite apenas números
+            : [], // Não aplica filtro se não for numérico
         decoration: InputDecoration(
             prefixIcon: Icon(icon),
             contentPadding:
