@@ -46,13 +46,6 @@ class PageSobre extends StatefulWidget {
 }
 
 class _PageSobreState extends State<PageSobre> {
-  TextEditingController controllerTitle = TextEditingController();
-  TextEditingController controllerAge = TextEditingController();
-  TextEditingController controllerSelectGen = TextEditingController();
-  TextEditingController controllerPatologia = TextEditingController();
-  List<String> lista_de_patologias = patologiasMaisVistas;
-  bool visibleField = false;
-
   @override
   Widget build(BuildContext context) {
     double sMaxwidth = MediaQuery.of(context).size.width;

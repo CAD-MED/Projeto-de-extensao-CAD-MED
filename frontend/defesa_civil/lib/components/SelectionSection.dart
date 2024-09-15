@@ -1,3 +1,4 @@
+import 'package:Cad_Med/services/text/truncateText.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
@@ -12,12 +13,6 @@ Widget selectionSection({
   String? selectedValue, // Valor inicial selecionado
 }) {
   // Função para truncar texto com no máximo 30 caracteres
-  String truncateText(String text, {int maxLength = 30}) {
-    if (text.length > maxLength) {
-      return text.substring(0, maxLength) + '...';
-    }
-    return text;
-  }
 
   // Verifica se `items` tem elementos e define o valor selecionado corretamente
   final String? dropdownValue =
