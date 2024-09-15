@@ -43,14 +43,14 @@ class _PageInitState extends State<PageInit> {
                           hintText: "nome completo",
                           controller: controllerNome,
                           icon: Icons.account_box_outlined),
-                      const SizedBox(height: 15),
+                      // const SizedBox(height: 15),
                       textfieldSection(
                           keyboardType: TextInputType.text,
                           title: "posto de atendimento",
                           hintText: "posto",
                           controller: controllerPosto,
                           icon: Icons.domain),
-                      const SizedBox(height: 15),
+                      // const SizedBox(height: 15),
                       textfieldSection(
                           keyboardType: TextInputType.text,
                           obscureText: true,
@@ -58,7 +58,7 @@ class _PageInitState extends State<PageInit> {
                           hintText: "senha",
                           controller: controllerSenha,
                           icon: Icons.key),
-                      const SizedBox(height: 50),
+                      // const SizedBox(height: 50),
                       buttonPersonalizado(
                           maxWidth: sMaxwidth,
                           text: "Iniciar app",

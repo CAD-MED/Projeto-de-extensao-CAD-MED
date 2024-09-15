@@ -23,6 +23,7 @@ class _PageCadastrarState extends State<PageCadastrar> {
   TextEditingController controllerSelectGen = TextEditingController();
   TextEditingController controllerPatologia = TextEditingController();
   List<String> lista_de_patologias = patologiasMaisVistas;
+  bool visibleField = false;
 
   @override
   Widget build(BuildContext context) {
@@ -73,17 +74,35 @@ class _PageCadastrarState extends State<PageCadastrar> {
                           }),
                       const SizedBox(height: 15),
                       selectionSection(
-                        width: sMaxwidth - margem,
-                        title: "Patologia",
-                        icon: Icons.menu,
-                        hintText: "Patologia",
-                        controller: controllerPatologia,
-                        items: lista_de_patologias,
-                        selectedValue: 'Selecione', // Valor inicial
-                        onChanged: (newValue) {
-                          controllerPatologia.text = newValue ?? '';
-                        },
-                      ),
+                          width: sMaxwidth - margem,
+                          title: "Patologia",
+                          icon: Icons.menu,
+                          hintText: "Patologia",
+                          controller: controllerPatologia,
+                          items: lista_de_patologias,
+                          selectedValue: 'Selecione', // Valor inicial
+                          onChanged: (newValue) {
+                            if (newValue == "Outros") {
+                              setState(() {
+                                visibleField = true;
+                                controllerPatologia.text = "";
+                              });
+                            } else {
+                              setState(() {
+                                visibleField = false;
+                              });
+                              controllerPatologia.text = newValue ?? '';
+                            }
+                          }),
+                      visibleField ? const SizedBox(height: 15) : Container(),
+                      visibleField
+                          ? textfieldSection(
+                              keyboardType: TextInputType.name,
+                              title: "Adicione a patologia",
+                              hintText: "patologia",
+                              controller: controllerPatologia,
+                              icon: Icons.menu)
+                          : Container(),
                       const SizedBox(height: 50),
                       buttonPersonalizado(
                           maxWidth: sMaxwidth,
@@ -99,10 +118,11 @@ class _PageCadastrarState extends State<PageCadastrar> {
                               alertFailField(context);
                             } else {
                               alertSucess(context);
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const PageInicio()));
+                              print(controllerPatologia.text);
+                              // Navigator.of(context).pushReplacement(
+                              //     MaterialPageRoute(
+                              //         builder: (context) =>
+                              //             const PageInicio()));
                             }
                           }),
                       const SizedBox(height: 100),
