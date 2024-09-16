@@ -1,5 +1,5 @@
-name: defesa_civil
-description: "A new Flutter project."
+name: Cad_Med
+description: "criado para facilitar e agilizar o processo de registro e gerenciamento de pessoas atendidas nos postos de voluntariado da Defesa Civil em parceria com a Cruz Vermelha."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -35,10 +35,23 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
+  auto_size_text: ^3.0.0
+  awesome_snackbar_content: ^0.1.4
+  flutter_launcher_icons: ^0.13.1
+  sqflite: ^2.3.3+1
+  flutter_native_splash: ^2.4.1
+  device_preview: ^1.2.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_launcher_icons:
+  image_path: "images/logoIconnn.png"
+  android: "launcher_icon"
+  adaptive_icon_background: "#FFFFFF"
+  ios: true
+  min_sdk_android: 21 # android min sdk min:16, default 21
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -59,8 +72,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -74,10 +87,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: LilitaOne
+      fonts:
+        - asset: fonts/LilitaOne-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
