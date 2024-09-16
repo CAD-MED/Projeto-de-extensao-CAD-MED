@@ -18,7 +18,7 @@ Desenvolvedores
     - Luan Levi Barbosa de Carvalho
     - Alberto Monteiro Miranda Junior
     - Andrey Ribeiro Guterres
-    - Marcus
+    - Marcus Batista
 
 Documentação
     - Bianca da Silva Aragão

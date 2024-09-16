@@ -1,8 +1,11 @@
 import 'package:Cad_Med/components/buttonEffect.dart';
 import 'package:Cad_Med/components/header.dart';
 import 'package:Cad_Med/components/textSection.dart';
+import 'package:Cad_Med/effects/SlideTransitionPage.dart';
 import 'package:Cad_Med/pages/PageCadastrar.dart';
+import 'package:Cad_Med/pages/PageSettings.dart';
 import 'package:Cad_Med/pages/PageSobre.dart';
+import 'package:Cad_Med/pages/PageVisualizarCadastros.dart';
 import 'package:flutter/material.dart';
 
 class PageInicio extends StatelessWidget {
@@ -38,14 +41,19 @@ class PageInicio extends StatelessWidget {
                             buttonEffect(
                                 size: buttonSize,
                                 onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => PageCadastrar()));
+                                  Navigator.of(context).push(
+                                      SlideTransitionPage(
+                                          page: PageCadastrar()));
                                 },
                                 title: "Cadastrar",
                                 icon: Icons.group),
                             buttonEffect(
                                 size: buttonSize,
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                      SlideTransitionPage(
+                                          page: PageVisualizarCadastro()));
+                                },
                                 title: "Visualizar",
                                 icon: Icons.dashboard),
                           ],
@@ -56,15 +64,18 @@ class PageInicio extends StatelessWidget {
                             children: [
                               buttonEffect(
                                   size: buttonSize,
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        SlideTransitionPage(
+                                            page: Pagesettings()));
+                                  },
                                   title: "Configurar",
                                   icon: Icons.settings),
                               buttonEffect(
                                   size: buttonSize,
                                   onTap: () {
                                     Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) => PageSobre()));
+                                        SlideTransitionPage(page: PageSobre()));
                                   },
                                   title: "Sobre",
                                   icon: Icons.view_cozy)

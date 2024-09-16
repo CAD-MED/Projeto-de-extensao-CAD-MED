@@ -2,8 +2,11 @@ import 'package:Cad_Med/components/buttonPersonalizado.dart';
 import 'package:Cad_Med/components/headerFitHeight.dart';
 import 'package:Cad_Med/components/textSection.dart';
 import 'package:Cad_Med/components/textfieldSection.dart';
+import 'package:Cad_Med/effects/SlideTransitionPage.dart';
 import 'package:Cad_Med/messageAlerts/alerts.dart';
 import 'package:Cad_Med/pages/PageInicio.dart';
+import 'package:Cad_Med/services/database/sqlHelper.dart';
+import 'package:Cad_Med/services/user/addUser.dart';
 import 'package:flutter/material.dart';
 
 class PageInit extends StatefulWidget {
@@ -19,6 +22,7 @@ class _PageInitState extends State<PageInit> {
   TextEditingController controllerNome = TextEditingController();
   TextEditingController controllerPosto = TextEditingController();
   TextEditingController controllerSenha = TextEditingController();
+  SqfliteHelper dbHelper = SqfliteHelper();
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +66,7 @@ class _PageInitState extends State<PageInit> {
                       buttonPersonalizado(
                           maxWidth: sMaxwidth,
                           text: "Iniciar app",
-                          onPressed: () {
+                          onPressed: () async {
                             // verificando se todos os campos estão preenchidos corretamente
                             if (controllerNome.text.isEmpty ||
                                 controllerPosto.text.isEmpty ||
@@ -70,10 +74,13 @@ class _PageInitState extends State<PageInit> {
                               alertFailField(context);
                             } else {
                               alertSucess(context);
+                              await addUser(
+                                  dbHelper: dbHelper,
+                                  nome: controllerNome.text,
+                                  posto: controllerPosto.text,
+                                  senha: controllerSenha.text);
                               Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const PageInicio()));
+                                  SlideTransitionPage(page: PageInicio()));
                             }
                           }),
                       const SizedBox(height: 100),

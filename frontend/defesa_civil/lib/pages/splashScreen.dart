@@ -1,5 +1,8 @@
+import 'package:Cad_Med/effects/SlideTransitionPage.dart';
 import 'package:Cad_Med/pages/PageInicio.dart';
 import 'package:Cad_Med/pages/PageInit.dart';
+import 'package:Cad_Med/services/database/sqlHelper.dart';
+import 'package:Cad_Med/services/user/getAllLogin.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -8,18 +11,26 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  SqfliteHelper dbHelper = SqfliteHelper();
+  List userData = [];
   @override
   void initState() {
     super.initState();
+    getAllLogin(dbHelper: dbHelper).then((data) {
+      setState(() {
+        userData = data;
+      });
+    });
     // Adiciona um atraso de 3 segundos
     Future.delayed(const Duration(seconds: 4), () {
       // Navega para a próxima tela após 3 segundos
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                PageInicio()), // Substitua pela sua próxima tela
-      );
+      if (userData.isNotEmpty) {
+        Navigator.of(context)
+            .pushReplacement(SlideTransitionPage(page: PageInicio()));
+      } else {
+        Navigator.of(context)
+            .pushReplacement(SlideTransitionPage(page: PageInit()));
+      }
     });
   }
 
@@ -54,8 +65,7 @@ class _SplashScreenState extends State<SplashScreen> {
                                   height: 40,
                                   width: 40,
                                   child: CircularProgressIndicator(
-                                    color: Colors
-                                        .white, // Cor do indicador de carregamento
+                                    color: Colors.white,
                                   ))),
                           SizedBox(height: 50),
                         ])),

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 Widget buttonPersonalizado(
-    {required maxWidth, required text, required Function onPressed}) {
+    {required maxWidth,
+    required text,
+    required Function onPressed,
+    Color color = Colors.green}) {
   return InkWell(
     onTap: () {
       onPressed();
@@ -14,15 +17,14 @@ Widget buttonPersonalizado(
             width: maxWidth - 20,
             height: 67,
             decoration: BoxDecoration(
-                color: Colors.green.withOpacity(.7),
+                color: color.withOpacity(.7),
                 borderRadius: BorderRadius.circular(20)),
           ),
           Container(
             width: maxWidth - 20,
             height: 60,
             decoration: BoxDecoration(
-                color: Colors.green[600],
-                borderRadius: BorderRadius.circular(18)),
+                color: color, borderRadius: BorderRadius.circular(18)),
             child: Center(
               child: Text(
                 text,

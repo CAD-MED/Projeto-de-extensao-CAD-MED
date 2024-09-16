@@ -1,12 +1,13 @@
-import 'package:Cad_Med/pages/PageInicio.dart';
-import 'package:Cad_Med/pages/PageInit.dart';
-import 'package:Cad_Med/pages/PageSobre.dart';
-import 'package:Cad_Med/pages/PageVisualizarCadastros.dart';
 import 'package:Cad_Med/pages/splashScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  FlutterNativeSplash.remove();
+
   runApp(MaterialApp(
-    home: PageVisualizarCadastro(),
+    home: SplashScreen(),
   ));
 }

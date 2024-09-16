@@ -3,9 +3,12 @@ import 'package:Cad_Med/components/buttonPersonalizado.dart';
 import 'package:Cad_Med/components/header.dart';
 import 'package:Cad_Med/components/textSection.dart';
 import 'package:Cad_Med/components/textfieldSection.dart';
+import 'package:Cad_Med/effects/SlideTransitionPageRemove.dart';
 import 'package:Cad_Med/messageAlerts/alerts.dart';
 import 'package:Cad_Med/pages/PageInicio.dart';
+import 'package:Cad_Med/services/database/sqlHelper.dart';
 import 'package:Cad_Med/services/patologias/data.dart';
+import 'package:Cad_Med/services/paciente/addPaciente.dart';
 import 'package:flutter/material.dart';
 
 class PageCadastrar extends StatefulWidget {
@@ -18,6 +21,7 @@ class PageCadastrar extends StatefulWidget {
 }
 
 class _PageCadastrarState extends State<PageCadastrar> {
+  SqfliteHelper dbHelper = SqfliteHelper();
   TextEditingController controllerTitle = TextEditingController();
   TextEditingController controllerAge = TextEditingController();
   TextEditingController controllerSelectGen = TextEditingController();
@@ -107,7 +111,7 @@ class _PageCadastrarState extends State<PageCadastrar> {
                       buttonPersonalizado(
                           maxWidth: sMaxwidth,
                           text: "Cadastrar",
-                          onPressed: () {
+                          onPressed: () async {
                             // verificando se todos os campos estão preenchidos corretamente
                             if (controllerTitle.text.isEmpty ||
                                 controllerAge.text.isEmpty ||
@@ -118,10 +122,13 @@ class _PageCadastrarState extends State<PageCadastrar> {
                               alertFailField(context);
                             } else {
                               alertSucess(context);
-                              // Navigator.of(context).pushReplacement(
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             const PageInicio()));
+                              await addPaciente(
+                                  dbHelper: dbHelper,
+                                  nome: controllerTitle.text,
+                                  patologia: controllerPatologia.text,
+                                  genero: controllerSelectGen.text,
+                                  idade: controllerAge.text);
+                              navigateAndRemoveUntil(context, PageInicio());
                             }
                           }),
                       const SizedBox(height: 100),
