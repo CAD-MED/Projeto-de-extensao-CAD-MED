@@ -1,11 +1,6 @@
-import 'package:Cad_Med/components/SelectionSection.dart';
-import 'package:Cad_Med/components/buttonPersonalizado.dart';
 import 'package:Cad_Med/components/header.dart';
 import 'package:Cad_Med/components/textSection.dart';
-import 'package:Cad_Med/components/textfieldSection.dart';
-import 'package:Cad_Med/messageAlerts/alerts.dart';
 import 'package:Cad_Med/pages/PageInicio.dart';
-import 'package:Cad_Med/services/patologias/data.dart';
 import 'package:flutter/material.dart';
 
 const EQUIPE = """

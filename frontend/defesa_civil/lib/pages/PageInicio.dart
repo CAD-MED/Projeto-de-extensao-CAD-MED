@@ -6,31 +6,55 @@ import 'package:Cad_Med/pages/PageCadastrar.dart';
 import 'package:Cad_Med/pages/PageSettings.dart';
 import 'package:Cad_Med/pages/PageSobre.dart';
 import 'package:Cad_Med/pages/PageVisualizarCadastros.dart';
+import 'package:Cad_Med/services/database/sqlHelper.dart';
+import 'package:Cad_Med/services/user/getAllLogin.dart';
 import 'package:flutter/material.dart';
 
-class PageInicio extends StatelessWidget {
+class PageInicio extends StatefulWidget {
   const PageInicio({super.key});
 
   @override
+  State<PageInicio> createState() => _PageInicioState();
+}
+
+class _PageInicioState extends State<PageInicio> {
+  SqfliteHelper dbHelper = SqfliteHelper();
+  List userData = [];
+  @override
+  void initState() {
+    super.initState();
+    getAllLogin(dbHelper: dbHelper).then((data) {
+      setState(() {
+        userData = data;
+      });
+    });
+  }
+
   Widget build(BuildContext context) {
     double sMaxwidth = MediaQuery.of(context).size.width;
     double margem = 60.0;
     double buttonSize = ((sMaxwidth - margem) / 2) - 25;
+    if (sMaxwidth > 500) {
+      buttonSize = ((400 - margem) / 2) - 25;
+      ;
+    }
     return SafeArea(
         child: Scaffold(
             backgroundColor: Colors.white,
             body: SingleChildScrollView(
                 child: Column(children: [
               header(sMaxwidth),
-              SizedBox(
-                width: sMaxwidth - margem,
+              Container(
+                width: sMaxwidth > 500 ? 400 : (sMaxwidth - margem),
                 child: Column(
                   children: [
-                    textSection(
-                        scale: 1.2,
-                        title: "Inicio",
-                        text: "Seja bem vindo, Marco",
-                        color: const Color(0xff558C54)),
+                    userData.isNotEmpty
+                        ? textSection(
+                            scale: 1.2,
+                            title: "Inicio",
+                            text: "Seja bem vindo, ${userData[0]['nome']}",
+                            color: const Color(0xff558C54))
+                        : Container(),
                     const SizedBox(height: 20),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,

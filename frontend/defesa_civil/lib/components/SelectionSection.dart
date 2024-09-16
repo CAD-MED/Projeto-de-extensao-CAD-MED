@@ -59,8 +59,10 @@ Widget selectionSection({
               return DropdownMenuItem<String>(
                 value: value,
                 child: AutoSizeText(
-                  truncateText(
-                      value), // Trunca o texto se exceder 30 caracteres
+                  truncateText(value,
+                      maxLength: width! < 350
+                          ? 20
+                          : 30), // Trunca o texto se exceder 30 caracteres
                   maxLines: 1,
                   minFontSize: 12,
                   maxFontSize: 16,
