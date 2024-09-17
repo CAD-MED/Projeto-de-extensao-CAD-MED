@@ -19,7 +19,7 @@ class PageEditeUser extends StatefulWidget {
 
 class _PageEditeUserState extends State<PageEditeUser> {
   final String rodapeTexto =
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at vestibulum nisl, in pellentesque erat. Nam non eleifend dolor, nec gravida mauris. ";
+      "Bem-vindo ao CadMed! Para começar a sua jornada, precisamos de algumas informações básicas. Preencha os campos abaixo para criar seu perfil:";
 
   SqfliteHelper dbHelper = SqfliteHelper();
   // Controladores dos campos de texto

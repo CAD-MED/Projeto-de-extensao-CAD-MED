@@ -34,7 +34,7 @@ Design
 class PageSobre extends StatefulWidget {
   const PageSobre({super.key});
   final String rodapeTexto =
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at vestibulum nisl, in pellentesque erat. Nam non eleifend dolor, nec gravida mauris. ";
+      "O CadMed é um aplicativo móvel desenvolvido para transformar a forma como registramos e gerenciamos as pessoas atendidas pelos postos da Defesa Civil. Feito especialmente para enfrentar os desafios do Círio de Nazaré. Buscando tornar o atendimento mais eficiente e seguro.";
 
   @override
   State<PageSobre> createState() => _PageSobreState();
@@ -59,7 +59,8 @@ class _PageSobreState extends State<PageSobre> {
                       textSection(
                           image: "images/banner1.png",
                           title: "Nossa motivação",
-                          text: widget.rodapeTexto + widget.rodapeTexto),
+                          text:
+                              "Com o CadMed, estamos construindo um futuro onde a tecnologia se alia ao compromisso com a segurança e o bem-estar da comunidade. Cada clique, cada registro, cada dado digitalizado é um passo em direção a um atendimento mais ágil e humano.\n\nVamos juntos transformar a maneira como a Defesa Civil atende, registrando e gerenciando, e fazendo com que cada evento seja uma oportunidade para oferecer o melhor suporte possível."),
                       const SizedBox(height: 15),
                       sectionLogoExtensao(),
                       const SizedBox(height: 15),

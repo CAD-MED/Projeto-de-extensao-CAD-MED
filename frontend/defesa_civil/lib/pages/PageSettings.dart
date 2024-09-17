@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class Pagesettings extends StatelessWidget {
   const Pagesettings({super.key});
   final String rodapeTexto =
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at vestibulum nisl, in pellentesque erat. Nam non eleifend dolor, nec gravida mauris. ";
+      "Explore as configurações para personalizar sua experiência e garantir que o CadMed continue a atender às suas necessidades de forma eficaz e segura.";
 
   @override
   Widget build(BuildContext context) {

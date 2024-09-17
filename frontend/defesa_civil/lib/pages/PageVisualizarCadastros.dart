@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class PageVisualizarCadastro extends StatefulWidget {
   const PageVisualizarCadastro({super.key});
   final String rodapeTexto =
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at vestibulum nisl, in pellentesque erat. Nam non eleifend dolor, nec gravida mauris. ";
+      "Bem-vindo à sua central! Aqui, você pode visualizar e analisar as informações de todos cadastrados de forma clara e acessível. ";
 
   @override
   State<PageVisualizarCadastro> createState() => _PageVisualizarCadastroState();

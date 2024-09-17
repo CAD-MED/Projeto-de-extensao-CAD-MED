@@ -18,7 +18,7 @@ class PageInit extends StatefulWidget {
 
 class _PageInitState extends State<PageInit> {
   final String rodapeTexto =
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at vestibulum nisl, in pellentesque erat. Nam non eleifend dolor, nec gravida mauris. ";
+      "Bem-vindo ao CadMed! Para começar a sua jornada, precisamos de algumas informações básicas. Preencha os campos abaixo para criar seu perfil:";
   TextEditingController controllerNome = TextEditingController();
   TextEditingController controllerPosto = TextEditingController();
   TextEditingController controllerSenha = TextEditingController();
@@ -43,14 +43,14 @@ class _PageInitState extends State<PageInit> {
                       const SizedBox(height: 15),
                       textfieldSection(
                           keyboardType: TextInputType.name,
-                          title: "nome completo",
+                          title: "Nome completo",
                           hintText: "nome completo",
                           controller: controllerNome,
                           icon: Icons.account_box_outlined),
                       // const SizedBox(height: 15),
                       textfieldSection(
                           keyboardType: TextInputType.text,
-                          title: "posto de atendimento",
+                          title: "Posto de atendimento",
                           hintText: "posto",
                           controller: controllerPosto,
                           icon: Icons.domain),
@@ -58,7 +58,7 @@ class _PageInitState extends State<PageInit> {
                       textfieldSection(
                           keyboardType: TextInputType.text,
                           obscureText: true,
-                          title: "senha do banco de dados",
+                          title: "Senha do banco de dados",
                           hintText: "senha",
                           controller: controllerSenha,
                           icon: Icons.key),

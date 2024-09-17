@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 class PageCadastrar extends StatefulWidget {
   const PageCadastrar({super.key});
   final String rodapeTexto =
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at vestibulum nisl, in pellentesque erat. Nam non eleifend dolor, nec gravida mauris. ";
+      "Para oferecer uma experiência personalizada, precisamos coletar algumas informações adicionais sobre sua saúde. Preencha os campos abaixo:";
 
   @override
   State<PageCadastrar> createState() => _PageCadastrarState();
@@ -48,7 +48,7 @@ class _PageCadastrarState extends State<PageCadastrar> {
                       const SizedBox(height: 15),
                       textfieldSection(
                           keyboardType: TextInputType.name,
-                          title: "nome completo",
+                          title: "Nome completo",
                           hintText: "nome completo",
                           controller: controllerTitle,
                           icon: Icons.account_box_outlined),
@@ -60,7 +60,7 @@ class _PageCadastrarState extends State<PageCadastrar> {
                               child: textfieldSection(
                                   keyboardType: TextInputType.number,
                                   isNumeric: true,
-                                  title: "idade",
+                                  title: "Idade",
                                   hintText: "idade",
                                   controller: controllerAge,
                                   icon: Icons.badge))),
