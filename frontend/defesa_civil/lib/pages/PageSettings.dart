@@ -42,8 +42,10 @@ class Pagesettings extends StatelessWidget {
                         SizedBox(height: 15),
                         buttonPersonalizado(
                             maxWidth: sMaxwidth,
-                            onPressed: () {},
-                            text: "Exporta banco de dados"),
+                            onPressed: () {
+                              _showExportDialog(context);
+                            },
+                            text: "Exportar banco de dados"),
                         const SizedBox(height: 100),
                       ],
                     )
@@ -52,17 +54,73 @@ class Pagesettings extends StatelessWidget {
               )
             ]))));
   }
-}
 
-Widget sectionLogoExtensao() {
-  return SizedBox(
-      child: Column(children: [
-    Text("Projeto de extensão",
-        style: TextStyle(fontSize: 20, color: Colors.green[800])),
-    const SizedBox(height: 5),
-    const Image(image: AssetImage("images/logoUnama.png")),
-    const SizedBox(height: 5),
-    Text("Faculdade Unama",
-        style: TextStyle(fontSize: 20, color: Colors.green[800])),
-  ]));
+  void _showExportDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Exportar Banco de Dados',
+            style: TextStyle(color: Colors.green[800]),
+          ),
+          content: Text('Você deseja realmente exportar o banco de dados?'),
+          actions: [
+            TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.green[600],
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                foregroundColor: Colors
+                    .white, // Alterado de "primary" para "foregroundColor"
+              ),
+              child: Text('Não', style: TextStyle(fontSize: 18)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.green[600],
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                foregroundColor: Colors
+                    .white, // Alterado de "primary" para "foregroundColor"
+              ),
+              child: Text('Sim', style: TextStyle(fontSize: 18)),
+              onPressed: () {
+                Navigator.of(context).pop(); // Fecha a caixa de diálogo
+                _showLoadingScreen(context); // Chama a função de loading
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showLoadingScreen(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false, // Não permite fechar clicando fora
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Row(
+            children: [
+              CircularProgressIndicator(
+                color: Colors.green,
+              ),
+              SizedBox(width: 20),
+              Text("Carregando..."),
+            ],
+          ),
+        );
+      },
+    );
+
+    // Simula um atraso de 2 segundos para o loading
+    Future.delayed(Duration(seconds: 2), () {
+      Navigator.of(context).pop(); // Fecha a tela de loading
+      // Aqui você pode adicionar a lógica de exportação do banco de dados
+      // e mostrar uma mensagem de sucesso, se necessário.
+    });
+  }
 }
