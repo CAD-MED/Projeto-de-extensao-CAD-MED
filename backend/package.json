@@ -10,8 +10,10 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "express": "^4.19.2",
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
     "mariadb": "^3.3.1",
-    "sequelize": "^6.37.3"
+    "sequelize": "^6.37.3",
+    "sqlite3": "^5.1.7"
   }
 }

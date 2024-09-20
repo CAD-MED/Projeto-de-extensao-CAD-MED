@@ -20,7 +20,6 @@ Documentação
     - Gustavo Dos Santos do Nascimento
     - Davi Serrão Lima
     - Gabriel Lobo
-    - Matheus Lohan Pinheiro Furtado
     - Rodrigo De Oliveira Yoshioka
 
 Design

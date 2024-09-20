@@ -1,79 +1,56 @@
 const express = require('express');
-const sqlite3 = require('sqlite3').verbose();
 const bodyParser = require('body-parser');
+const sqlite3 = require('sqlite3').verbose();
+const cors = require('cors');
 
+// Inicializa o aplicativo Express
 const app = express();
-const port = 3000;
+const db = new sqlite3.Database('./database.db');
 
-// Configuração do middleware
+// Middleware
+app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
-// Configuração do banco de dados SQLite (arquivo físico)
-const db = new sqlite3.Database('./banco_de_dados.db');
-
-// Criar a tabela se não existir
-db.serialize(() => {
-  db.run(`CREATE TABLE IF NOT EXISTS dados (
+// Cria a tabela de pacientes se não existir
+db.run(`CREATE TABLE IF NOT EXISTS pacientes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    nome TEXT,
-    idade INTEGER,
-    sexo TEXT,
-    motivoAtendimento TEXT,
-    tipoAtendimento TEXT,
-    necessitaTransferencia BOOLEAN
-  )`);
-});
+    nome TEXT NOT NULL,
+    idade INTEGER NOT NULL,
+    genero TEXT NOT NULL,
+    patologia TEXT NOT NULL
+)`);
 
-// Create
-app.post('/dados', (req, res) => {
-  const { nome, idade, sexo, motivoAtendimento, tipoAtendimento, necessitaTransferencia } = req.body;
-  const stmt = db.prepare('INSERT INTO dados (nome, idade, sexo, motivoAtendimento, tipoAtendimento, necessitaTransferencia) VALUES (?, ?, ?, ?, ?, ?)');
-  stmt.run(nome, idade, sexo, motivoAtendimento, tipoAtendimento, necessitaTransferencia);
-  stmt.finalize();
-  res.status(201).json({ message: 'Dados salvos com sucesso!' });
-});
 
-// Read
-app.get('/dados', (req, res) => {
-  db.all('SELECT * FROM dados', (err, rows) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
-    } else {
-      res.json(rows);
+// Rota para adicionar um novo pacniete
+app.post('/pacientes', (req, res) => {
+    const { nome, idade, genero, patologia } = req.body;
+
+    if (!nome || !idade || !genero || !patologia) {
+        return res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
     }
-  });
+
+    const stmt = db.prepare('INSERT INTO pacientes (nome, idade, genero, patologia) VALUES (?, ?, ?, ?)');
+    stmt.run(nome, idade, genero, patologia, function(err) {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.status(201).json({ id: this.lastID });
+    });
+    stmt.finalize();
 });
 
-// Update
-app.put('/dados/:id', (req, res) => {
-  const { id } = req.params;
-  const { nome, idade, sexo, motivoAtendimento, tipoAtendimento, necessitaTransferencia } = req.body;
-  const stmt = db.prepare('UPDATE dados SET nome = ?, idade = ?, sexo = ?, motivoAtendimento = ?, tipoAtendimento = ?, necessitaTransferencia = ? WHERE id = ?');
-  stmt.run(nome, idade, sexo, motivoAtendimento, tipoAtendimento, necessitaTransferencia, id, (err) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
-    } else {
-      res.json({ message: 'Dados atualizados com sucesso!' });
-    }
-  });
-  stmt.finalize();
+// Rota para listar todos os pacientes
+app.get('/pacientes', (req, res) => {
+    db.all('SELECT * FROM pacientes', [], (err, rows) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(rows);
+    });
 });
 
-// Delete
-app.delete('/dados/:id', (req, res) => {
-  const { id } = req.params;
-  const stmt = db.prepare('DELETE FROM dados WHERE id = ?');
-  stmt.run(id, (err) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
-    } else {
-      res.json({ message: 'Dados deletados com sucesso!' });
-    }
-  });
-  stmt.finalize();
-});
-
-app.listen(port, () => {
-  console.log(`Servidor rodando em http://localhost:${port}`);
+// Inicia o servidor
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log('Servidor rodando na porta ${PORT}');
 });
