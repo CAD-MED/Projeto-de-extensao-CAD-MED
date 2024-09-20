@@ -139,7 +139,6 @@ Este projeto está licenciado sob a Licença MIT. Veja o arquivo [LICENSE](LICEN
 - [@Gustavo Dos Santos do Nascimento]()
 - [@Davi Serrão Lima]()
 - [@Gabriel Lobo]()
-- [@Matheus Lohan Pinheiro Furtado]()
 - [@Rodrigo De Oliveira Yoshioka]()
 
 #### Design
