@@ -9,7 +9,7 @@ class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
-
+//teste pages
 class _SplashScreenState extends State<SplashScreen> {
   SqfliteHelper dbHelper = SqfliteHelper();
   List userData = [];
