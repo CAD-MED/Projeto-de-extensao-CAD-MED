@@ -1,4 +1,5 @@
 List<String> patologiasMaisVistas = [
+  "Selecione",
   "Abuso de álcool ou drogas",
   "Acidentes vasculares cerebrais (AVC)",
   "Ataques de pânico",
