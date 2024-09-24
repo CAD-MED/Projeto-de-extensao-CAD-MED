@@ -1,5 +1,7 @@
 import express, { Request, Response } from 'express';
 import UserService from '../services/paciente.service';
+import dotenv from 'dotenv';
+
 
 const router = express.Router();
 
@@ -30,18 +32,28 @@ const router = express.Router();
 //     }
 // });
 
-// POST /pacientes - Cria novos pacientes
 router.post('/pacientes', async (req: Request, res: Response) => {
     try {
-        const pacientes = req.body; // Recebe a lista de pacientes a partir do corpo da requisição
+        const { pacientes, password } = req.body; // Recebe a lista de pacientes e a senha a partir do corpo da requisição
 
+        // Obter a senha do arquivo .env
+        const REQUIRED_PASSWORD = process.env.REQUIRED_PASSWORD;
+
+        // Verifica se a senha foi fornecida e se está correta
+        if (password !== REQUIRED_PASSWORD) {
+            return res.status(403).json({ error: 'Senha inválida. Acesso negado.' });
+        }
+
+        // Verifica se "pacientes" é um array
         if (!Array.isArray(pacientes)) {
             return res.status(400).json({ error: 'O corpo da requisição deve ser uma lista de pacientes' });
         }
+
+        // Cria os pacientes se a senha estiver correta
         await UserService.createMultipleUsers(pacientes);
         res.status(201).json({ message: 'Pacientes criados com sucesso' });
     } catch (error) {
-        res.status(500).json({ error: error });
+        res.status(500).json({ error: error || error });
     }
 });
 
