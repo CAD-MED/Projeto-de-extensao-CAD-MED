@@ -1,5 +1,5 @@
 [functions]
-  external_node_modules = ["express", "cors","firebase", "dotenv", "serverless-http", "swagger-jsdoc", "swagger-ui-express"]
+  external_node_modules = ["express", "cors","firebase", "dotenv", "serverless-http", "swagger-jsdoc", "swagger-ui-express", "mariadb", "mysql2", "sequelize", ""]
   node_bundler = "esbuild"
 
 [[redirects]]
