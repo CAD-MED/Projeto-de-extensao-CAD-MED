@@ -4,16 +4,20 @@ import 'package:Cad_Med/components/textSection.dart';
 import 'package:Cad_Med/effects/SlideTransitionPage.dart';
 import 'package:Cad_Med/pages/PageEditeUser.dart';
 import 'package:flutter/material.dart';
+import 'package:Cad_Med/services/exportDB/fetch.dart';
 
 class Pagesettings extends StatelessWidget {
   const Pagesettings({super.key});
   final String rodapeTexto =
       "Explore as configurações para personalizar sua experiência e garantir que o CadMed continue a atender às suas necessidades de forma eficaz e segura.";
 
+  get dbHelper => null;
+
   @override
   Widget build(BuildContext context) {
     double sMaxwidth = MediaQuery.of(context).size.width;
     double margem = 60.0;
+
     return SafeArea(
         child: Scaffold(
             backgroundColor: Colors.white,
@@ -55,6 +59,7 @@ class Pagesettings extends StatelessWidget {
             ]))));
   }
 
+  // Função para exibir o diálogo de exportação
   void _showExportDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -70,8 +75,7 @@ class Pagesettings extends StatelessWidget {
               style: TextButton.styleFrom(
                 backgroundColor: Colors.green[600],
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                foregroundColor: Colors
-                    .white, // Alterado de "primary" para "foregroundColor"
+                foregroundColor: Colors.white,
               ),
               child: Text('Não', style: TextStyle(fontSize: 18)),
               onPressed: () {
@@ -82,13 +86,12 @@ class Pagesettings extends StatelessWidget {
               style: TextButton.styleFrom(
                 backgroundColor: Colors.green[600],
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                foregroundColor: Colors
-                    .white, // Alterado de "primary" para "foregroundColor"
+                foregroundColor: Colors.white,
               ),
               child: Text('Sim', style: TextStyle(fontSize: 18)),
               onPressed: () {
-                Navigator.of(context).pop(); // Fecha a caixa de diálogo
-                _showLoadingScreen(context); // Chama a função de loading
+                Navigator.of(context).pop();
+                _showLoadingScreen(context);
               },
             ),
           ],
@@ -97,10 +100,11 @@ class Pagesettings extends StatelessWidget {
     );
   }
 
-  void _showLoadingScreen(BuildContext context) {
+  void _showLoadingScreen(BuildContext context) async {
+
     showDialog(
       context: context,
-      barrierDismissible: false, // Não permite fechar clicando fora
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           content: Row(
@@ -117,10 +121,36 @@ class Pagesettings extends StatelessWidget {
     );
 
     // Simula um atraso de 2 segundos para o loading
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(Duration(seconds: 2), () async {
       Navigator.of(context).pop(); // Fecha a tela de loading
-      // Aqui você pode adicionar a lógica de exportação do banco de dados
-      // e mostrar uma mensagem de sucesso, se necessário.
+
+      // Instância do FetchService para acessar o banco local
+      FetchService fetchService = FetchService(dbHelper: dbHelper);
+
+      // Buscando os dados locais
+      List<Map<String, dynamic>> users = await fetchService.getAllPacientes();
+
+      // Exportando os dados para a nuvem
+      await fetchService.exportDatabase(users);
+
+      // Exibe uma mensagem de sucesso após a exportação
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Sucesso'),
+            content: Text('Dados exportados com sucesso!'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
     });
   }
 }

@@ -109,4 +109,6 @@ class SqfliteHelper {
     final db = await database;
     return await db.delete('logins', where: 'id = ?', whereArgs: [id]);
   }
+
+  queryAllRows() {}
 }
