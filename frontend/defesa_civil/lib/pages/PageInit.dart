@@ -39,19 +39,19 @@ class _PageInitState extends State<PageInit> {
                     width: sMaxwidth - margem,
                     child: Column(children: [
                       textSection(
-                          title: "Cadastro de usuario", text: rodapeTexto),
+                          title: "Cadastro de Usuário", text: rodapeTexto),
                       const SizedBox(height: 15),
                       textfieldSection(
                           keyboardType: TextInputType.name,
-                          title: "email",
-                          hintText: "digite o email",
+                          title: "E-mail",
+                          hintText: "Digite seu email",
                           controller: controllerNome,
                           icon: Icons.account_box_outlined),
                       // const SizedBox(height: 15),
                       textfieldSection(
                           keyboardType: TextInputType.text,
                           title: "Posto de atendimento",
-                          hintText: "posto",
+                          hintText: "Posto",
                           controller: controllerPosto,
                           icon: Icons.domain),
                       // const SizedBox(height: 15),
@@ -59,7 +59,7 @@ class _PageInitState extends State<PageInit> {
                           keyboardType: TextInputType.text,
                           obscureText: true,
                           title: "Senha do banco de dados",
-                          hintText: "senha",
+                          hintText: "Senha",
                           controller: controllerSenha,
                           icon: Icons.key),
                       const SizedBox(height: 30),

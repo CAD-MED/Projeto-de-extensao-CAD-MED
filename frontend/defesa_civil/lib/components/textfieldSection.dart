@@ -31,7 +31,7 @@ Widget textfieldSection(
             prefixIcon: Icon(icon),
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            hintText: "digite $hintText",
+            hintText: " $hintText",
             enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.black.withOpacity(.5)),
                 borderRadius: BorderRadius.circular(10))))

@@ -49,7 +49,7 @@ class _PageCadastrarState extends State<PageCadastrar> {
                       textfieldSection(
                           keyboardType: TextInputType.name,
                           title: "Nome completo",
-                          hintText: "nome completo",
+                          hintText: "Nome completo",
                           controller: controllerTitle,
                           icon: Icons.account_box_outlined),
                       // const SizedBox(height: 15),
@@ -61,7 +61,7 @@ class _PageCadastrarState extends State<PageCadastrar> {
                                   keyboardType: TextInputType.number,
                                   isNumeric: true,
                                   title: "Idade",
-                                  hintText: "idade",
+                                  hintText: "Idade",
                                   controller: controllerAge,
                                   icon: Icons.badge))),
                       // const SizedBox(height: 15),
@@ -103,7 +103,7 @@ class _PageCadastrarState extends State<PageCadastrar> {
                           ? textfieldSection(
                               keyboardType: TextInputType.name,
                               title: "Adicione a patologia",
-                              hintText: "patologia",
+                              hintText: "Patologia",
                               controller: controllerPatologia,
                               icon: Icons.menu)
                           : Container(),
