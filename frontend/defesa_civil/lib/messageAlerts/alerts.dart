@@ -69,3 +69,39 @@ void alertFailField(BuildContext context) {
     ..hideCurrentSnackBar()
     ..showSnackBar(snackBar);
 }
+
+void alertSucessUp(BuildContext context) {
+  const snackBar = SnackBar(
+    elevation: 0,
+    behavior: SnackBarBehavior.floating,
+    backgroundColor: Colors.transparent,
+    content: AwesomeSnackbarContent(
+      title: 'dados carregados na nuvem',
+      message:
+          'Tudo certo, seus dados foram salvos com sucesso. Continue aproveitando o app!',
+      contentType: ContentType.success,
+    ),
+  );
+
+  ScaffoldMessenger.of(context)
+    ..hideCurrentSnackBar()
+    ..showSnackBar(snackBar);
+}
+
+void alertFailUp(BuildContext context, code) {
+  SnackBar snackBar = SnackBar(
+    elevation: 0,
+    behavior: SnackBarBehavior.floating,
+    backgroundColor: Colors.transparent,
+    content: AwesomeSnackbarContent(
+      title: 'Opps, algo errado',
+      message:
+          'Erro ao carregar os dados, seus dados não foram salvos. error $code',
+      contentType: ContentType.failure,
+    ),
+  );
+
+  ScaffoldMessenger.of(context)
+    ..hideCurrentSnackBar()
+    ..showSnackBar(snackBar);
+}

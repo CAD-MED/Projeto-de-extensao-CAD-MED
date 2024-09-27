@@ -1,42 +1,60 @@
 import 'dart:convert';
+import 'package:Cad_Med/services/paciente/getAllPaciente.dart';
+import 'package:Cad_Med/services/user/getAllLogin.dart';
 import 'package:http/http.dart' as http;
 import 'package:Cad_Med/services/database/sqlHelper.dart';
 
-class FetchService {
-  final SqfliteHelper dbHelper;
+Future<int> exportDatabase({required SqfliteHelper dbHelper}) async {
+  try {
+    // resgata os dados do meu login
+    List<dynamic> user = await getAllLogin(dbHelper: dbHelper);
+    // resgata os dados do meus pacientes
+    List<dynamic> data = await getAllPacientes(dbHelper: dbHelper);
+    List dataQuery = [];
+    Map<String, dynamic> usuario = {
+      'idUser': user[0]['nome'],
+      'nome': '',
+      'idade': '',
+      'patologia': '',
+      'genero': '',
+    };
 
-  FetchService({required this.dbHelper});
-
-  Future<List<Map<String, dynamic>>> getAllPacientes() async {
-    try {
-      final List<Map<String, dynamic>> ´users = await dbHelper.queryAllRows();
-      return users;
-    } catch (e) {
-      print("Erro ao buscar pacientes: $e");
-      return [];
+    for (var e in data) {
+      usuario['nome'] = e['nome'];
+      usuario['idade'] = e['idade'];
+      usuario['patologia'] = e['patologia'];
+      usuario['genero'] = e['genero'];
+      dataQuery.add(usuario);
+      usuario = {
+        'idUser': user[0]['nome'],
+        'nome': '',
+        'idade': '',
+        'patologia': '',
+        'genero': '',
+      };
     }
-  }
+    Map<String, dynamic> bodyRequest = {
+      "pacientes": dataQuery,
+      "password": user[0]['senha']
+    };
+    var url =
+        Uri.parse('https://ephemeral-figolla-4537ac.netlify.app/api/pacientes');
+    // var body = json.encode({'usuarios': users});
 
-  Future<void> exportDatabase(List<Map<String, dynamic>> users) async {
-    try {
-      var url = Uri.parse('https://');
-      var body = json.encode({'usuarios': users});
+    var response = await http.post(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: json.encode(bodyRequest),
+    );
 
-      var response = await http.post(
-        url,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: body,
-      );
-
-      if (response.statusCode == 200) {
-        print("Dados exportados com sucesso!");
-      } else {
-        print("Falha ao exportar dados. Código: ${response.statusCode}");
-      }
-    } catch (e) {
-      print("Erro ao exportar dados: $e");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return response.statusCode;
+    } else {
+      return response.statusCode;
     }
+  } catch (e) {
+    return 500;
   }
 }

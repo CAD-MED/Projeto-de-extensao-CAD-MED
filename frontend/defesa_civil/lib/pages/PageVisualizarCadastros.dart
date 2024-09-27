@@ -34,8 +34,6 @@ class _PageVisualizarCadastroState extends State<PageVisualizarCadastro> {
   void loadData() async {
     try {
       users = await getAllPacientes(dbHelper: dbHelper); // Simulação de fetch
-      print("carregando dados");
-      print(users);
       if (users.isEmpty) {
         setState(() {
           isEmptyData = true;
@@ -97,9 +95,6 @@ class _PageVisualizarCadastroState extends State<PageVisualizarCadastro> {
                                           ),
                                         ),
                                       );
-                                      // Ação ao clicar no card
-                                      print(
-                                          'Clicou no usuário ${user['nome']}');
                                     },
                                   );
                                 },
