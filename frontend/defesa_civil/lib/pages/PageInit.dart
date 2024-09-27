@@ -43,8 +43,8 @@ class _PageInitState extends State<PageInit> {
                       const SizedBox(height: 15),
                       textfieldSection(
                           keyboardType: TextInputType.name,
-                          title: "Nome completo",
-                          hintText: "nome completo",
+                          title: "email",
+                          hintText: "digite o email",
                           controller: controllerNome,
                           icon: Icons.account_box_outlined),
                       // const SizedBox(height: 15),

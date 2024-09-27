@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Para usar TextInputFormatter
 
 Widget textfieldSection(
-    {IconData icon = Icons.account_box_outlined,
+    {enabled = true,
+    IconData icon = Icons.account_box_outlined,
     isNumeric = false,
     required TextInputType keyboardType,
     bool obscureText = false,
@@ -18,6 +19,7 @@ Widget textfieldSection(
                 TextStyle(fontSize: 18, color: Colors.black.withOpacity(.8)))),
     const SizedBox(height: 8),
     TextField(
+        enabled: enabled,
         controller: controller,
         obscureText: obscureText,
         keyboardType: keyboardType,

@@ -58,9 +58,10 @@ class _PageEditeUserState extends State<PageEditeUser> {
                             title: "Cadastro de usuario", text: rodapeTexto),
                         const SizedBox(height: 15),
                         textfieldSection(
+                            enabled: false,
                             keyboardType: TextInputType.name,
-                            title: "nome completo",
-                            hintText: "nome completo",
+                            title: "email",
+                            hintText: "email",
                             controller: controllerNome,
                             icon: Icons.account_box_outlined),
                         textfieldSection(
