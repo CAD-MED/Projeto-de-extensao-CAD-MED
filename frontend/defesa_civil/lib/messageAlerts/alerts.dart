@@ -70,6 +70,24 @@ void alertFailField(BuildContext context) {
     ..showSnackBar(snackBar);
 }
 
+void alertSucessCopy(BuildContext context) {
+  const snackBar = SnackBar(
+    elevation: 0,
+    behavior: SnackBarBehavior.floating,
+    backgroundColor: Colors.transparent,
+    content: AwesomeSnackbarContent(
+      title: 'dados copiados com sucesso',
+      message:
+          'Tudo certo, os dados dos pacientes foram copiados para sua area de transferencia. Continue aproveitando o app!',
+      contentType: ContentType.success,
+    ),
+  );
+
+  ScaffoldMessenger.of(context)
+    ..hideCurrentSnackBar()
+    ..showSnackBar(snackBar);
+}
+
 void alertSucessUp(BuildContext context) {
   const snackBar = SnackBar(
     elevation: 0,

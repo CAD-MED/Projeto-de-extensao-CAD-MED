@@ -7,6 +7,7 @@ import 'package:Cad_Med/pages/PageEditeUser.dart';
 import 'package:Cad_Med/services/database/sqlHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:Cad_Med/services/exportDB/fetch.dart';
+import 'package:flutter/services.dart';
 
 class Pagesettings extends StatefulWidget {
   const Pagesettings({super.key});
@@ -77,6 +78,20 @@ class _PagesettingsState extends State<Pagesettings> {
                                   });
                                 },
                                 text: "Exportar banco de dados"),
+                        SizedBox(height: 15),
+                        loading
+                            ? Container()
+                            : buttonPersonalizado(
+                                maxWidth: sMaxwidth,
+                                onPressed: () async {
+                                  String response = await exportDatabaseCopy(
+                                      dbHelper: dbHelper);
+                                  // Copia a string para a área de transferência
+                                  Clipboard.setData(
+                                      ClipboardData(text: response));
+                                  alertSucessCopy(context);
+                                },
+                                text: "Copy banco de dados"),
                         !loading ? Container() : CircularProgressIndicator(),
                         const SizedBox(height: 100),
                       ],

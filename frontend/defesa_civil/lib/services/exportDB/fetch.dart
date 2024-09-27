@@ -58,3 +58,42 @@ Future<int> exportDatabase({required SqfliteHelper dbHelper}) async {
     return 500;
   }
 }
+
+Future exportDatabaseCopy({required SqfliteHelper dbHelper}) async {
+  try {
+    // resgata os dados do meu login
+    List<dynamic> user = await getAllLogin(dbHelper: dbHelper);
+    // resgata os dados do meus pacientes
+    List<dynamic> data = await getAllPacientes(dbHelper: dbHelper);
+    List dataQuery = [];
+    Map<String, dynamic> usuario = {
+      'idUser': user[0]['nome'],
+      'nome': '',
+      'idade': '',
+      'patologia': '',
+      'genero': '',
+    };
+
+    for (var e in data) {
+      usuario['nome'] = e['nome'];
+      usuario['idade'] = e['idade'];
+      usuario['patologia'] = e['patologia'];
+      usuario['genero'] = e['genero'];
+      dataQuery.add(usuario);
+      usuario = {
+        'idUser': user[0]['nome'],
+        'nome': '',
+        'idade': '',
+        'patologia': '',
+        'genero': '',
+      };
+    }
+    Map<String, dynamic> bodyRequest = {
+      "pacientes": dataQuery,
+      "password": user[0]['senha']
+    };
+    return json.encode(bodyRequest);
+  } catch (e) {
+    return "";
+  }
+}
