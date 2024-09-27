@@ -52,7 +52,7 @@ class _PageInicioState extends State<PageInicio> {
                         ? textSection(
                             scale: 1.2,
                             title: "Inicio",
-                            text: "Seja bem vindo, ${userData[0]['nome']}",
+                            text: "Seja bem vindo(a), ${userData[0]['nome']}",
                             color: const Color(0xff558C54))
                         : Container(),
                     const SizedBox(height: 20),

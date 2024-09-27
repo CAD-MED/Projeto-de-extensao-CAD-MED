@@ -38,7 +38,8 @@ Future<int> exportDatabase({required SqfliteHelper dbHelper}) async {
       "password": user[0]['senha']
     };
     var url =
-        Uri.parse('https://ephemeral-figolla-4537ac.netlify.app/api/pacientes');
+        Uri.parse('https://cadmedunama.netlify.app/api/pacientes');
+        
     // var body = json.encode({'usuarios': users});
 
     var response = await http.post(
