@@ -4,26 +4,32 @@ import 'package:Cad_Med/pages/PageInit.dart';
 import 'package:Cad_Med/services/database/sqlHelper.dart';
 import 'package:Cad_Med/services/user/getAllLogin.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
-//teste pages
+
 class _SplashScreenState extends State<SplashScreen> {
   SqfliteHelper dbHelper = SqfliteHelper();
   List userData = [];
+
   @override
   void initState() {
     super.initState();
+    _requestPermissions(); // Solicita as permissões de armazenamento e rede
+
+    // Busca dados do login no banco de dados
     getAllLogin(dbHelper: dbHelper).then((data) {
       setState(() {
         userData = data;
       });
     });
-    // Adiciona um atraso de 3 segundos
+
+    // Adiciona um atraso de 4 segundos para simular a splash screen
     Future.delayed(const Duration(seconds: 4), () {
-      // Navega para a próxima tela após 3 segundos
+      // Verifica se há dados de login e navega para a tela correta
       if (userData.isNotEmpty) {
         Navigator.of(context)
             .pushReplacement(SlideTransitionPage(page: PageInicio()));
@@ -32,6 +38,22 @@ class _SplashScreenState extends State<SplashScreen> {
             .pushReplacement(SlideTransitionPage(page: PageInit()));
       }
     });
+  }
+
+  // Método para solicitar permissões
+  Future<void> _requestPermissions() async {
+    // Solicita permissões de armazenamento (READ e WRITE)
+    if (await _hasStoragePermission() == false) {
+      await Permission.storage.request();
+    }
+
+    // Se o dispositivo é muito antigo, pode solicitar permissões adicionais aqui, se necessário.
+  }
+
+  // Verifica se já possui permissão de armazenamento
+  Future<bool> _hasStoragePermission() async {
+    var status = await Permission.storage.status;
+    return status.isGranted;
   }
 
   @override
