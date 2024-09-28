@@ -13,16 +13,18 @@ Desenvolvedores
     - Luan Levi Barbosa de Carvalho
     - Alberto Monteiro Miranda Junior
     - Andrey Ribeiro Guterres
+    - Marcus Paulo Da Silva Batista
     - João Vitor Ramos Soares
 
 Documentação
     - Bianca da Silva Aragão
     - Gabriel Lobo Baia
     - Sean Max de Oliveira Pinheiro
-
+    - Davi Serrão Lima
 Design
+    - Marco Antonio
+    - Rafael Góes Duarte
     - Maria Luiza Machado Rodrigues
-    - Alex Gonçalves da Silva Filho
     - Vinicius Matheus Ramos das Merces
 """;
 
