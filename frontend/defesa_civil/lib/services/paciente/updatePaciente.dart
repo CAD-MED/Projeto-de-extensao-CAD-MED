@@ -14,7 +14,6 @@ Future updatePaciente(
     'idade': idade,
     'patologia': patologia,
     'genero': genero,
-    'data_cadastro': DateTime.now().toIso8601String(),
   };
 
   int res = await dbHelper.updateUser(id, User);

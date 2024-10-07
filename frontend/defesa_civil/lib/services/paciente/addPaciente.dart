@@ -15,7 +15,6 @@ Future addPaciente(
     'genero': genero,
     'data_cadastro': DateTime.now().toIso8601String(),
   };
-
   int res = await dbHelper.insertUser(newUser);
   return res;
 }

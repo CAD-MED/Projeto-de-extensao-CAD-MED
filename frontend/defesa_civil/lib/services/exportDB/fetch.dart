@@ -17,6 +17,7 @@ Future<int> exportDatabase({required SqfliteHelper dbHelper}) async {
       'idade': '',
       'patologia': '',
       'genero': '',
+      'createdAt': '',
     };
 
     for (var e in data) {
@@ -24,6 +25,9 @@ Future<int> exportDatabase({required SqfliteHelper dbHelper}) async {
       usuario['idade'] = e['idade'];
       usuario['patologia'] = e['patologia'];
       usuario['genero'] = e['genero'];
+      usuario['createdAt'] =
+          DateTime.tryParse(e['data_cadastro'])?.toIso8601String() ??
+              DateTime.now().toIso8601String();
       dataQuery.add(usuario);
       usuario = {
         'idUser': user[0]['nome'],
@@ -31,15 +35,18 @@ Future<int> exportDatabase({required SqfliteHelper dbHelper}) async {
         'idade': '',
         'patologia': '',
         'genero': '',
+        'createdAt': '',
       };
     }
     Map<String, dynamic> bodyRequest = {
       "pacientes": dataQuery,
       "password": user[0]['senha']
     };
-    var url =
-        Uri.parse('https://cadmedunama.netlify.app/api/pacientes');
-        
+    const urlBase = "http://192.168.1.36:3000";
+    // const urlBase = "https://cadmedunama.netlify.app";
+
+    var url = Uri.parse('$urlBase/api/pacientes');
+
     // var body = json.encode({'usuarios': users});
 
     var response = await http.post(
@@ -73,6 +80,7 @@ Future exportDatabaseCopy({required SqfliteHelper dbHelper}) async {
       'idade': '',
       'patologia': '',
       'genero': '',
+      'createdAt': '',
     };
 
     for (var e in data) {
@@ -80,6 +88,9 @@ Future exportDatabaseCopy({required SqfliteHelper dbHelper}) async {
       usuario['idade'] = e['idade'];
       usuario['patologia'] = e['patologia'];
       usuario['genero'] = e['genero'];
+      usuario['createdAt'] =
+          DateTime.tryParse(e['data_cadastro'])?.toIso8601String() ??
+              DateTime.now().toIso8601String();
       dataQuery.add(usuario);
       usuario = {
         'idUser': user[0]['nome'],
@@ -91,7 +102,6 @@ Future exportDatabaseCopy({required SqfliteHelper dbHelper}) async {
     }
     Map<String, dynamic> bodyRequest = {
       "pacientes": dataQuery,
-      "password": user[0]['senha']
     };
     return json.encode(bodyRequest);
   } catch (e) {
