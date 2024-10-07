@@ -9,7 +9,7 @@ interface UserAttributes {
     idade: number;
     genero: string;
     patologia: string;
-    createdAt?: Date;
+    createdAt?: string;
 }
 
 // Campos opcionais durante a criação de usuários (ID auto-incremento)
@@ -23,7 +23,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
     public idade!: number;
     public genero!: string;
     public patologia!: string;
-    public createdAt?: Date;
+    public createdAt?: string;
 }
 
 // Definição do modelo no Sequelize
@@ -38,28 +38,30 @@ export const Users = User.init({
         allowNull: false
     },
     nome: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.TEXT,
         allowNull: false
     },
     idade: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     genero: {
-        type: DataTypes.STRING(10),
+        type: DataTypes.TEXT,
         allowNull: false
     },
     patologia: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.TEXT,
         allowNull: false
     },
     createdAt: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW
-    }
+        type: DataTypes.TEXT,
+        allowNull: true, // Permite inserção manual de data
+        // defaultValue: DataTypes.NOW
+    },
 }, {
     sequelize,
-    tableName: 'users'
+    tableName: 'users',
+    timestamps: false, // Desabilita timestamps automáticos do Sequelize
 });
 
 export default Users;
